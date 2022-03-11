@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SignupFragment">
+
+    <fragment
+        android:id="@+id/SignupFragment"
+        android:name="edu.sharif.homework1.SignupFragment"
+        android:label="@string/signup_fragment_label"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_signup_to_professor"
+            app:destination="@id/professorSignupFragment" />
+        <action
+            android:id="@+id/action_signup_to_student"
+            app:destination="@id/studentSignupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentSignupFragment"
+        android:name="edu.sharif.homework1.StudentSignupFragment"
+        android:label="Welcome Student!"
+        tools:layout="@layout/fragment_student_signup">
+        <action
+            android:id="@+id/action_studentSignup_to_studentPanel"
+            app:destination="@id/studentPanelFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="first_name"
+            app:argType="string" />
+        <argument
+            android:name="last_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/professorSignupFragment"
+        android:name="edu.sharif.homework1.ProfessorSignupFragment"
+        android:label="Welcome Professor!"
+        tools:layout="@layout/fragment_professor_signup">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="first_name"
+            app:argType="string" />
+        <argument
+            android:name="last_name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_professorSignup_to_professorPanel"
+            app:destination="@id/professorPanelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/professorPanelFragment"
+        android:name="edu.sharif.homework1.ProfessorPanelFragment"
+        android:label="fragment_professor_panel"
+        tools:layout="@layout/fragment_professor_panel" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_professorPanelFragment_to_classPageFragment"
+            app:destination="@id/classPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentPanelFragment"
+        android:name="edu.sharif.homework1.StudentPanelFragment"
+        android:label="fragment_student_panel"
+        tools:layout="@layout/fragment_student_panel" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_studentPanelFragment_to_classPageFragment"
+            app:destination="@id/classPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/classPageFragment"
+        android:name="edu.sharif.homework1.ClassPageFragment"
+        android:label="fragment_class_page"
+        tools:layout="@layout/fragment_class_page" >
+        <argument
+            android:name="class_name"
+            app:argType="string" />
+    </fragment>
+</navigation>
