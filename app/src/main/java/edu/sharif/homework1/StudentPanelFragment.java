@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,6 +70,16 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
                 NavHostFragment.findNavController(StudentPanelFragment.this)
                         .navigate(StudentPanelFragmentDirections.
                                 actionStudentPanelFragmentToClassPageFragment(searchText));
+            }
+        });
+
+        Button addToClassButton = view.findViewById(R.id.add_to_class_button);
+        addToClassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(StudentPanelFragment.this)
+                        .navigate(StudentPanelFragmentDirections.
+                                actionStudentPanelFragmentToAddToClassFragment(username));
             }
         });
     }

@@ -3,7 +3,7 @@ package edu.sharif.homework1;
 import java.util.ArrayList;
 
 public class Class {
-    private static ArrayList<Class> classes;
+    public static ArrayList<Class> classes;
 
     static {
         classes = new ArrayList<>();

@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_professorPanelFragment_to_classPageFragment"
             app:destination="@id/classPageFragment" />
+        <action
+            android:id="@+id/action_professorPanelFragment_to_createClassFragment"
+            app:destination="@id/createClassFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentPanelFragment"
@@ -82,6 +85,9 @@
         <action
             android:id="@+id/action_studentPanelFragment_to_classPageFragment"
             app:destination="@id/classPageFragment" />
+        <action
+            android:id="@+id/action_studentPanelFragment_to_addToClassFragment"
+            app:destination="@id/addToClassFragment" />
     </fragment>
     <fragment
         android:id="@+id/classPageFragment"
@@ -90,6 +96,31 @@
         tools:layout="@layout/fragment_class_page" >
         <argument
             android:name="class_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToClassFragment"
+        android:name="edu.sharif.homework1.AddToClassFragment"
+        android:label="fragment_add_to_class"
+        tools:layout="@layout/fragment_add_to_class" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addToClassFragment_to_studentPanelFragment"
+            app:destination="@id/studentPanelFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="edu.sharif.homework1.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/createClassFragment"
+        android:name="edu.sharif.homework1.CreateClassFragment"
+        android:label="CreateClassFragment" >
+        <argument
+            android:name="professorName"
             app:argType="string" />
     </fragment>
 </navigation>
