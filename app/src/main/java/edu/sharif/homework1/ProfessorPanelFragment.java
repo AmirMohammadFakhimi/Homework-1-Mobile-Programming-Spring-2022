@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,6 +70,16 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
                 NavHostFragment.findNavController(ProfessorPanelFragment.this)
                         .navigate(ProfessorPanelFragmentDirections.
                                 actionProfessorPanelFragmentToClassPageFragment(searchText));
+            }
+        });
+
+        Button createClassButton = view.findViewById(R.id.create_class_button);
+        createClassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(ProfessorPanelFragment.this)
+                        .navigate(ProfessorPanelFragmentDirections.
+                                actionProfessorPanelFragmentToCreateClassFragment(professor.getLastName()));
             }
         });
     }

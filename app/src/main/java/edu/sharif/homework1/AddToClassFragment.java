@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import edu.sharif.homework1.databinding.FragmentStudentPanelBinding;
 
-public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
 
     private FragmentStudentPanelBinding binding;
     private MyRecyclerViewAdapter adapter;
@@ -30,6 +30,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         classesName = new ArrayList<>();
     }
 
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -38,7 +39,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
 
         binding = FragmentStudentPanelBinding.inflate(inflater, container, false);
 
-        username = ProfessorPanelFragmentArgs.fromBundle(getArguments()).getUsername();
+        username = StudentPanelFragmentArgs.fromBundle(getArguments()).getUsername();
         student = (Student) User.getUserByUsername(username);
         ((MainActivity) getActivity()).setActionBarTitle("Welcome " + student.getFirstName() +
                 " " + student.getLastName());
@@ -46,12 +47,15 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         return binding.getRoot();
     }
 
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<Class> classes = student.getClasses();
+        ArrayList<Class> classes = Class.classes;
         for (Class c : classes) {
-            classesName.add(c.getName());
+            if (!student.getClasses().contains(c)) {
+                classesName.add(c.getName());
+            }
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.student_classes_list);
@@ -60,29 +64,16 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        binding.studentSearchButton.setOnClickListener(view1 -> {
-            String searchText = binding.searchClassName.getText().toString();
-            if (searchText.isEmpty()) {
-                Toast.makeText(getContext(), "Please enter a class name", Toast.LENGTH_SHORT).show();
-            } else if (!classesName.contains(searchText)) {
-                Toast.makeText(getContext(), "Class not found", Toast.LENGTH_SHORT).show();
-            } else {
-                NavHostFragment.findNavController(StudentPanelFragment.this)
-                        .navigate(StudentPanelFragmentDirections.
-                                actionStudentPanelFragmentToClassPageFragment(searchText));
-            }
-        });
-
-        Button addToClassButton = view.findViewById(R.id.add_to_class_button);
-        addToClassButton.setOnClickListener(new View.OnClickListener() {
+        Button backButton = view.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(StudentPanelFragment.this)
-                        .navigate(StudentPanelFragmentDirections.
-                                actionStudentPanelFragmentToAddToClassFragment(username));
+                NavHostFragment.findNavController(AddToClassFragment.this)
+                        .navigate(AddToClassFragmentDirections.actionAddToClassFragmentToStudentPanelFragment(username));
             }
         });
     }
+
 
     @Override
     public void onDestroyView() {
@@ -90,9 +81,10 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         binding = null;
     }
 
+
     @Override
     public void onItemClick(View view, int position) {
-        NavHostFragment.findNavController(StudentPanelFragment.this)
+        NavHostFragment.findNavController(AddToClassFragment.this)
                 .navigate(StudentPanelFragmentDirections.
                         actionStudentPanelFragmentToClassPageFragment(classesName.get(position)));
     }

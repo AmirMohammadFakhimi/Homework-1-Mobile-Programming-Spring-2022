@@ -21,8 +21,10 @@
     <string name="class_name">class name</string>
     <string name="search">search</string>
     <string name="create_class">create a class</string>
+    <string name="Create_Class">create class</string>
     <string name="add_to_class">add to a class</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back">back</string>
 
 
 </resources>
