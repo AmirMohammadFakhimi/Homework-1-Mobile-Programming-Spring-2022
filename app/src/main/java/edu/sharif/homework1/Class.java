@@ -24,6 +24,14 @@ public class Class {
         classes.add(this);
     }
 
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
+    }
+
     public String getName() {
         return name;
     }

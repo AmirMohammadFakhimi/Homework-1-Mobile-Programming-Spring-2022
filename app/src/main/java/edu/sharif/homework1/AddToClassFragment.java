@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import edu.sharif.homework1.databinding.FragmentStudentPanelBinding;
+import edu.sharif.homework1.databinding.FragmentAddToClassBinding;
 
 public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
 
-    private FragmentStudentPanelBinding binding;
+    private FragmentAddToClassBinding binding;
     private MyRecyclerViewAdapter adapter;
 
     private String username;
@@ -37,12 +37,10 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentStudentPanelBinding.inflate(inflater, container, false);
+        binding = FragmentAddToClassBinding.inflate(inflater, container, false);
 
         username = StudentPanelFragmentArgs.fromBundle(getArguments()).getUsername();
         student = (Student) User.getUserByUsername(username);
-        ((MainActivity) getActivity()).setActionBarTitle("Welcome " + student.getFirstName() +
-                " " + student.getLastName());
 
         return binding.getRoot();
     }
@@ -58,20 +56,13 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
             }
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.student_classes_list);
+        RecyclerView recyclerView = view.findViewById(R.id.classes_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyRecyclerViewAdapter(getContext(), classesName);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        Button backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(AddToClassFragment.this)
-                        .navigate(AddToClassFragmentDirections.actionAddToClassFragmentToStudentPanelFragment(username));
-            }
-        });
+
     }
 
 
@@ -84,8 +75,9 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
-        NavHostFragment.findNavController(AddToClassFragment.this)
-                .navigate(StudentPanelFragmentDirections.
-                        actionStudentPanelFragmentToClassPageFragment(classesName.get(position)));
+        Class newClass = Class.classes.get(position);
+        newClass.getStudents().add(student);
+        student.getClasses().add(newClass);
+        Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
     }
 }

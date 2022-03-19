@@ -38,7 +38,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
 
         binding = FragmentStudentPanelBinding.inflate(inflater, container, false);
 
-        username = ProfessorPanelFragmentArgs.fromBundle(getArguments()).getUsername();
+        username = StudentPanelFragmentArgs.fromBundle(getArguments()).getUsername();
         student = (Student) User.getUserByUsername(username);
         ((MainActivity) getActivity()).setActionBarTitle("Welcome " + student.getFirstName() +
                 " " + student.getLastName());

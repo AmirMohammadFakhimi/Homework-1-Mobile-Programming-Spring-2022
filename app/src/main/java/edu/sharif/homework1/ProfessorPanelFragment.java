@@ -79,7 +79,7 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
             public void onClick(View view) {
                 NavHostFragment.findNavController(ProfessorPanelFragment.this)
                         .navigate(ProfessorPanelFragmentDirections.
-                                actionProfessorPanelFragmentToCreateClassFragment(professor.getLastName()));
+                                actionProfessorPanelFragmentToCreateClassFragment(username));
             }
         });
     }
