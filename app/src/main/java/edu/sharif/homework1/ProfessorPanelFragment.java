@@ -51,7 +51,9 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
 
         ArrayList<Class> classes = professor.getClasses();
         for (Class c : classes) {
-            classesName.add(c.getName());
+            if (!classesName.contains(c.getName())){
+                classesName.add(c.getName());
+            }
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.professor_classes_list);
