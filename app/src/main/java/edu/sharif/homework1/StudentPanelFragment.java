@@ -52,7 +52,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         ArrayList<Class> classes = student.getClasses();
         classesName.clear();
         for (Class c : classes) {
-            classesName.add(c.getName() + " - " + c.getProfessor().getUsername());
+            classesName.add(c.getName() + " - " + c.getProfessorUsername());
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.student_classes_list);

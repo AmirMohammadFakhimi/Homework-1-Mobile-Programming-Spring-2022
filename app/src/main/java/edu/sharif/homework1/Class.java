@@ -10,7 +10,7 @@ public class Class {
     }
 
     private String name;
-    private Professor professor;
+    private String professorUsername;
     private ArrayList<Student> students;
     private ArrayList<Training> trainings;
 
@@ -19,16 +19,16 @@ public class Class {
         trainings = new ArrayList<>();
     }
 
-    public Class(String name, Professor professor) {
+    public Class(String name, String professorUsername) {
         this.name = name;
-        this.professor = professor;
+        this.professorUsername = professorUsername;
 
         classes.add(this);
     }
 
     public static Class getClassByClassName(String professorUsername, String className) {
         for (Class c : classes) {
-            if (c.getName().equals(className) && c.getProfessor().getUsername().equals(professorUsername)) {
+            if (c.getName().equals(className) && c.getProfessorUsername().equals(professorUsername)) {
                 return c;
             }
         }
@@ -51,5 +51,5 @@ public class Class {
     public String getName() {
         return name;
     }
-    public Professor getProfessor() { return professor; }
+    public String getProfessorUsername() { return professorUsername; }
 }

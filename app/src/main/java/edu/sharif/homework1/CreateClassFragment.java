@@ -64,7 +64,7 @@ public class CreateClassFragment extends Fragment{
     }
 
     private void createClass(String className) {
-        professor.getClasses().add(new Class(className,professor));
+        professor.getClasses().add(new Class(className, professor.getUsername()));
     }
 
     @Override
