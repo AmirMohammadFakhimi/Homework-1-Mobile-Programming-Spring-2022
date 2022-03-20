@@ -51,7 +51,7 @@ public class ProfessorSignupFragment extends Fragment {
                 User user = User.getUserByUsername(username);
 
                 if (user == null) {
-                    new Professor(username, password, firstName, lastName, university, getActivity());
+                    new Professor(username, password, firstName, lastName, university);
                     openProfessorPanelFragment();
                 } else if (!((Professor) user).getUniversity().equals(university)) {
                     Toast.makeText(getContext(), "You are already registered to another university",

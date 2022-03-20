@@ -77,7 +77,7 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
     public void onItemClick(View view, int position) {
         Class newClass = Class.classes.get(position);
         newClass.getStudents().add(student);
-        student.addClass(newClass);
+        student.getClasses().add(newClass);
         Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
     }
 }

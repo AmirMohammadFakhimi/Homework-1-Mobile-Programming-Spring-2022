@@ -1,7 +1,5 @@
 package edu.sharif.homework1;
 
-import androidx.fragment.app.FragmentActivity;
-
 import java.util.ArrayList;
 
 public class Class {
@@ -12,32 +10,38 @@ public class Class {
     }
 
     private String name;
-    private String professorUsername;
+    private Professor professor;
     private ArrayList<Student> students;
+    private ArrayList<Training> trainings;
 
     {
         students = new ArrayList<>();
+        trainings = new ArrayList<>();
     }
 
-    public Class(String name, String professorUsername, FragmentActivity activity) {
+    public Class(String name, Professor professor) {
         this.name = name;
-        this.professorUsername = professorUsername;
+        this.professor = professor;
 
-        MainActivity.saveData(activity, this, "Classes" + classes.size());
         classes.add(this);
     }
 
-    public static Class getClassByName(String name) {
+    public static Class getClassByClassName(String professorUsername, String className) {
         for (Class c : classes) {
-            if (c.name.equals(name)) {
+            if (c.getName().equals(className) && c.getProfessor().getUsername().equals(professorUsername)) {
                 return c;
             }
         }
         return null;
     }
 
+
     public ArrayList<Student> getStudents() {
         return students;
+    }
+
+    public ArrayList<Training> getTrainings() {
+        return trainings;
     }
 
     public void setStudents(ArrayList<Student> students) {
@@ -47,12 +51,5 @@ public class Class {
     public String getName() {
         return name;
     }
-
-    public void addStudent(Student student) {
-        students.add(student);
-    }
-
-    public String getProfessorUsername() {
-        return professorUsername;
-    }
+    public Professor getProfessor() { return professor; }
 }

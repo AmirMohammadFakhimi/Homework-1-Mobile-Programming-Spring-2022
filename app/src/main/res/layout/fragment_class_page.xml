@@ -7,13 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ClassPageFragment" >
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/create_training_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/Create_New_Training"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/class_training_list"
+        app:layout_constraintVertical_bias="0.07999998" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/class_training_list"
+        android:layout_width="160dp"
+        android:layout_height="321dp"
+        android:layout_marginTop="176dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

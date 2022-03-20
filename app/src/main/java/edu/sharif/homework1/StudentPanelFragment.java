@@ -50,10 +50,9 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
         super.onViewCreated(view, savedInstanceState);
 
         ArrayList<Class> classes = student.getClasses();
+        classesName.clear();
         for (Class c : classes) {
-            if (!classesName.contains(c.getName())) {
-                classesName.add(c.getName());
-            }
+            classesName.add(c.getName() + " - " + c.getProfessor().getUsername());
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.student_classes_list);
@@ -69,9 +68,9 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
             } else if (!classesName.contains(searchText)) {
                 Toast.makeText(getContext(), "Class not found", Toast.LENGTH_SHORT).show();
             } else {
-                NavHostFragment.findNavController(StudentPanelFragment.this)
-                        .navigate(StudentPanelFragmentDirections.
-                                actionStudentPanelFragmentToClassPageFragment(searchText));
+        //        NavHostFragment.findNavController(StudentPanelFragment.this)
+        //                .navigate(StudentPanelFragmentDirections.
+        //                        actionStudentPanelFragmentToStudentClassPage());
             }
         });
 
@@ -94,8 +93,12 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
 
     @Override
     public void onItemClick(View view, int position) {
+        String str = classesName.get(position);
+        String className = str.split(" - ")[0];
+        String professorUsername = str.split(" - ")[1];
+
         NavHostFragment.findNavController(StudentPanelFragment.this)
                 .navigate(StudentPanelFragmentDirections.
-                        actionStudentPanelFragmentToClassPageFragment(classesName.get(position)));
+                        actionStudentPanelFragmentToStudentClassPage(username, professorUsername, className));
     }
 }
