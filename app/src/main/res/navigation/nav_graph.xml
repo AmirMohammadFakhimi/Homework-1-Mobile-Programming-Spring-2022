@@ -110,11 +110,6 @@
             android:id="@+id/action_addToClassFragment_to_studentPanelFragment"
             app:destination="@id/studentPanelFragment" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="edu.sharif.homework1.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/createClassFragment"
         android:name="edu.sharif.homework1.CreateClassFragment"

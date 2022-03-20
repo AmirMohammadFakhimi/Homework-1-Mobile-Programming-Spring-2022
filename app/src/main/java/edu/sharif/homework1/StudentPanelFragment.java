@@ -51,7 +51,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
 
         ArrayList<Class> classes = student.getClasses();
         for (Class c : classes) {
-            if (!classesName.contains(c.getName())){
+            if (!classesName.contains(c.getName())) {
                 classesName.add(c.getName());
             }
         }

@@ -51,7 +51,7 @@ public class StudentSignupFragment extends Fragment {
                 User user = User.getUserByUsername(username);
 
                 if (user == null) {
-                    new Student(username, password, firstName, lastName, studentNumber);
+                    new Student(username, password, firstName, lastName, studentNumber, getActivity());
                     openStudentPanelFragment();
                 } else if (!((Student) user).getStudentNumber().equals(studentNumber)) {
                     Toast.makeText(getContext(), "You are already registered with another " +

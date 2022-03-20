@@ -53,6 +53,10 @@ public class User {
         return classes;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void addClass(Class c) {
         classes.add(c);
     }
