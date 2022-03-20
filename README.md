@@ -1,5 +1,5 @@
 # Homework-Mobile-Programming-Spring-2022
-Some apps which are homework for mobile programming course in Spring 2022 at Sharif University of Technology.
+Some apps which are homework for mobile programming course in spring 2022 at Sharif University of Technology.
 ## Team members:
 |Complete Name|Student Number|
 | ----------- | ----------- |
