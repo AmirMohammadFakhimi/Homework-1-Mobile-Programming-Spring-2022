@@ -14,9 +14,11 @@ public class Class {
     private String name;
     private String professorUsername;
     private ArrayList<Student> students;
+    private ArrayList<Training> trainings;
 
     {
         students = new ArrayList<>();
+        trainings = new ArrayList<>();
     }
 
     public Class(String name, String professorUsername, FragmentActivity activity) {
@@ -40,8 +42,8 @@ public class Class {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
+    public ArrayList<Training> getTrainings() {
+        return trainings;
     }
 
     public String getName() {
@@ -52,7 +54,9 @@ public class Class {
         students.add(student);
     }
 
-    public String getProfessorUsername() {
-        return professorUsername;
+    public void addTraining(Training training) {
+        trainings.add(training);
     }
+
+    public String getProfessorUsername() { return professorUsername; }
 }

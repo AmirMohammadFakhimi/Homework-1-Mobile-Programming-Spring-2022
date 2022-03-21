@@ -83,11 +83,11 @@
             android:name="username"
             app:argType="string" />
         <action
-            android:id="@+id/action_studentPanelFragment_to_classPageFragment"
-            app:destination="@id/classPageFragment" />
-        <action
             android:id="@+id/action_studentPanelFragment_to_addToClassFragment"
             app:destination="@id/addToClassFragment" />
+        <action
+            android:id="@+id/action_studentPanelFragment_to_studentClassPage"
+            app:destination="@id/studentClassPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/classPageFragment"
@@ -95,8 +95,34 @@
         android:label="fragment_class_page"
         tools:layout="@layout/fragment_class_page" >
         <argument
+            android:name="professorName"
+            app:argType="string" />
+        <argument
             android:name="class_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_classPageFragment_to_createTrainingFragment"
+            app:destination="@id/createTrainingFragment" />
+        <action
+            android:id="@+id/action_classPageFragment_to_trainingPageFragment"
+            app:destination="@id/trainingPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingPageFragment"
+        android:name="edu.sharif.homework1.TrainingPageFragment"
+        android:label="fragment_training_page"
+        tools:layout="@layout/fragment_training_page" >
+        <argument android:name="professorUserName"
+            app:argType="string" />
+        <argument
+            android:name="className"
+            app:argType="string" />
+        <argument
+            android:name="trainingName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_trainingPageFragment_to_trainingGradingFragment"
+            app:destination="@id/trainingGradingFragment" />
     </fragment>
     <fragment
         android:id="@+id/addToClassFragment"
@@ -110,13 +136,81 @@
             android:id="@+id/action_addToClassFragment_to_studentPanelFragment"
             app:destination="@id/studentPanelFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="edu.sharif.homework1.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/createClassFragment"
         android:name="edu.sharif.homework1.CreateClassFragment"
-        android:label="CreateClassFragment"
+        android:label="fragment_create_class"
         tools:layout="@layout/fragment_create_class" >
         <argument
             android:name="professorUserName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTrainingFragment"
+        android:name="edu.sharif.homework1.CreateTrainingFragment"
+        android:label="fragment_create_training"
+        tools:layout="@layout/fragment_create_training" >
+        <argument
+            android:name="professorUsername"
+            app:argType="string" />
+        <argument
+            android:name="className"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentClassPageFragment"
+        android:name="edu.sharif.homework1.StudentClassPageFragment"
+        android:label="fragment_student_class_page"
+        tools:layout="@layout/fragment_student_class_page" >
+        <argument
+            android:name="studentUsername"
+            app:argType="string" />
+        <argument android:name="professorUsername"
+            app:argType="string" />
+        <argument
+            android:name="className"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_studentClassPageFragment_to_studentTrainingPageFragment"
+            app:destination="@id/studentTrainingPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentTrainingPageFragment"
+        android:name="edu.sharif.homework1.StudentTrainingPageFragment"
+        android:label="fragment_student_training_page"
+        tools:layout="@layout/fragment_student_training_page" >
+        <argument
+            android:name="studentUsername"
+            app:argType="string" />
+        <argument
+            android:name="professorUsername"
+            app:argType="string" />
+        <argument
+            android:name="className"
+            app:argType="string" />
+        <argument
+            android:name="trainingName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingGradingFragment"
+        android:name="edu.sharif.homework1.TrainingGradingFragment"
+        android:label="fragment_training_grading"
+        tools:layout="@layout/fragment_training_grading" >
+        <argument android:name="studentUsername"
+            app:argType="string" />
+        <argument
+            android:name="professorUsername"
+            app:argType="string" />
+        <argument android:name="className"
+            app:argType="string" />
+        <argument
+            android:name="trainingName"
             app:argType="string" />
     </fragment>
 </navigation>

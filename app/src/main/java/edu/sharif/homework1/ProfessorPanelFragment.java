@@ -50,10 +50,9 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
         super.onViewCreated(view, savedInstanceState);
 
         ArrayList<Class> classes = professor.getClasses();
+        classesName.clear();
         for (Class c : classes) {
-            if (!classesName.contains(c.getName())) {
-                classesName.add(c.getName());
-            }
+            classesName.add(c.getName());
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.professor_classes_list);
@@ -71,7 +70,7 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
             } else {
                 NavHostFragment.findNavController(ProfessorPanelFragment.this)
                         .navigate(ProfessorPanelFragmentDirections.
-                                actionProfessorPanelFragmentToClassPageFragment(searchText));
+                                actionProfessorPanelFragmentToClassPageFragment(username, searchText));
             }
         });
 
@@ -96,6 +95,6 @@ public class ProfessorPanelFragment extends Fragment implements MyRecyclerViewAd
     public void onItemClick(View view, int position) {
         NavHostFragment.findNavController(ProfessorPanelFragment.this)
                 .navigate(ProfessorPanelFragmentDirections.
-                        actionProfessorPanelFragmentToClassPageFragment(classesName.get(position)));
+                        actionProfessorPanelFragmentToClassPageFragment(username, classesName.get(position)));
     }
 }

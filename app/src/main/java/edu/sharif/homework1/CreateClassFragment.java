@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import edu.sharif.homework1.databinding.FragmentCreateClassBinding;
 
-public class CreateClassFragment extends Fragment {
+public class CreateClassFragment extends Fragment{
 
     private FragmentCreateClassBinding binding;
 
@@ -29,6 +29,8 @@ public class CreateClassFragment extends Fragment {
         binding = FragmentCreateClassBinding.inflate(inflater, container, false);
         username = CreateClassFragmentArgs.fromBundle(getArguments()).getProfessorUserName();
         professor = (Professor) User.getUserByUsername(username);
+        ((MainActivity) getActivity()).setActionBarTitle("Create class");
+
         return binding.getRoot();
 
     }
@@ -37,6 +39,7 @@ public class CreateClassFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         EditText className = view.findViewById(R.id.className_text);
+
 
         binding.submitButton.setOnClickListener(view1 -> {
 
@@ -57,8 +60,7 @@ public class CreateClassFragment extends Fragment {
     }
 
     private void createClass(String className) {
-        Class newClass = new Class(className, professor.getUsername(), getActivity());
-        professor.addClass(newClass);
+        professor.getClasses().add(new Class(className, professor.getUsername(), getActivity()));
     }
 
     @Override

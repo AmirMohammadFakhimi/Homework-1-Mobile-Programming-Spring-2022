@@ -37,6 +37,8 @@ public class User {
         return null;
     }
 
+    public String getUsername() { return username; }
+
     public String getPassword() {
         return password;
     }
@@ -51,10 +53,6 @@ public class User {
 
     public ArrayList<Class> getClasses() {
         return classes;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public void addClass(Class c) {

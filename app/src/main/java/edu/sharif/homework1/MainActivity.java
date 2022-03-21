@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController,
                 appBarConfiguration);
 
+
 //        uncomment to delete all saved data
-//        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.clear();
-//        editor.apply();
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
         retrieveData();
     }
 
@@ -71,41 +72,83 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         Gson gson = new Gson();
 
+        retrieveProfessors(sharedPreferences, gson);
+        retrieveStudents(sharedPreferences, gson);
+        retrieveTrainings(sharedPreferences, gson);
+        retrieveAnswers(sharedPreferences, gson);
+        retrieveClasses(sharedPreferences, gson);
+
+    }
+
+    private void retrieveProfessors(SharedPreferences sharedPreferences, Gson gson) {
         String json = sharedPreferences.getString("Professors0", "");
-        int i = 1;
-        for (i = 1; !json.isEmpty(); i++) {
+        for (int i = 1; !json.isEmpty(); i++) {
             Professor professor = gson.fromJson(json, Professor.class);
             new Professor(professor.getUsername(), professor.getPassword(), professor.getFirstName(),
                     professor.getLastName(), professor.getUniversity(), this);
 
             json = sharedPreferences.getString("Professors" + i, "");
         }
+    }
 
-        json = sharedPreferences.getString("Students0", "");
-        for (i = 1; !json.isEmpty(); i++) {
+    private void retrieveStudents(SharedPreferences sharedPreferences, Gson gson) {
+        String json = sharedPreferences.getString("Students0", "");
+        for (int i = 1; !json.isEmpty(); i++) {
             Student student = gson.fromJson(json, Student.class);
             new Student(student.getUsername(), student.getPassword(), student.getFirstName(),
                     student.getLastName(), student.getStudentNumber(), this);
 
             json = sharedPreferences.getString("Students" + i, "");
         }
+    }
 
-        json = sharedPreferences.getString("Classes0", "");
-        for (i = 1; !json.isEmpty(); i++) {
+    private void retrieveTrainings(SharedPreferences sharedPreferences, Gson gson) {
+        String json = sharedPreferences.getString("Trainings0", "");
+        for (int i = 1; !json.isEmpty(); i++) {
+            Training training = gson.fromJson(json, Training.class);
+            new Training(training.getName(), training.getOwnerClass(), this);
+
+            json = sharedPreferences.getString("Trainings" + i, "");
+        }
+    }
+
+    private void retrieveAnswers(SharedPreferences sharedPreferences, Gson gson) {
+        String json = sharedPreferences.getString("Answers0", "");
+        for (int i = 1; !json.isEmpty(); i++) {
+            Answer answer = gson.fromJson(json, Answer.class);
+            new Answer(answer.getStudentUsername(), answer.getAnswerText(), this);
+
+            json = sharedPreferences.getString("Answers" + i, "");
+        }
+    }
+
+    private void retrieveClasses(SharedPreferences sharedPreferences, Gson gson) {
+        String json = sharedPreferences.getString("Trainings0", "");
+        for (int i = 1; !json.isEmpty(); i++) {
             Class c1 = gson.fromJson(json, Class.class);
 
             Professor professor = (Professor) User.getUserByUsername(c1.getProfessorUsername());
             Class c2 = new Class(c1.getName(), professor.getUsername(), this);
             professor.addClass(c2);
 
+//            add students to class
             ArrayList<Student> students = c1.getStudents();
-            for (Student s : students) {
-                Student newStudent = (Student) User.getUserByUsername(s.getUsername());
+            for (Student student : students) {
+                Student newStudent = (Student) User.getUserByUsername(student.getUsername());
                 c2.addStudent(newStudent);
                 newStudent.addClass(c2);
             }
 
-            json = sharedPreferences.getString("Classes" + i, "");
+//            add trainings to class
+            ArrayList<Training> trainings = c1.getTrainings();
+            for (Training training : trainings) {
+                Training newTraining = (Training) Training.getTrainingByClassAndName(
+                        Class.getClassByName(training.getOwnerClass()), training.getName());
+
+                c2.addTraining(newTraining);
+            }
+
+            json = sharedPreferences.getString("Trainings" + i, "");
         }
     }
 }

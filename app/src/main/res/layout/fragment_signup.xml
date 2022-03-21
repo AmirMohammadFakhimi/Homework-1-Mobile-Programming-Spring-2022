@@ -71,7 +71,7 @@
 
             <Button
                 android:id="@+id/student_button"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:text="@string/student" />
         </LinearLayout>

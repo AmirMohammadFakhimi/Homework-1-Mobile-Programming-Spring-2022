@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import edu.sharif.homework1.databinding.FragmentClassPageBinding;
+import edu.sharif.homework1.databinding.FragmentStudentClassPageBinding;
 
-public class ClassPageFragment extends Fragment  implements MyRecyclerViewAdapter.ItemClickListener {
+public class StudentClassPageFragment extends Fragment  implements MyRecyclerViewAdapter.ItemClickListener {
 
-    private FragmentClassPageBinding binding;
+    private FragmentStudentClassPageBinding binding;
 
+    private String studentUsername;
     private String professorUsername;
     private String className;
     private Class thisClass;
@@ -37,10 +38,11 @@ public class ClassPageFragment extends Fragment  implements MyRecyclerViewAdapte
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentClassPageBinding.inflate(inflater, container, false);
+        binding = FragmentStudentClassPageBinding.inflate(inflater, container, false);
 
-        professorUsername = ClassPageFragmentArgs.fromBundle(getArguments()).getProfessorName();
-        className = ClassPageFragmentArgs.fromBundle(getArguments()).getClassName();
+        studentUsername = StudentClassPageFragmentArgs.fromBundle(getArguments()).getStudentUsername();
+        professorUsername = StudentClassPageFragmentArgs.fromBundle(getArguments()).getProfessorUsername();
+        className = StudentClassPageFragmentArgs.fromBundle(getArguments()).getClassName();
 
         ((MainActivity) getActivity()).setActionBarTitle(
                 "Class " + className + " (" + professorUsername + ")");
@@ -61,18 +63,11 @@ public class ClassPageFragment extends Fragment  implements MyRecyclerViewAdapte
             trainingsName.add(training.getName());
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.class_training_list);
+        RecyclerView recyclerView = view.findViewById(R.id.class_trainings_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyRecyclerViewAdapter(getContext(), trainingsName);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
-        binding.createTrainingButton.setOnClickListener(view1 -> {
-            NavHostFragment.findNavController(ClassPageFragment.this)
-                    .navigate(ClassPageFragmentDirections
-                                    .actionClassPageFragmentToCreateTrainingFragment(
-                                            professorUsername, className));
-        });
     }
 
     @Override
@@ -81,12 +76,11 @@ public class ClassPageFragment extends Fragment  implements MyRecyclerViewAdapte
         binding = null;
     }
 
-
     @Override
     public void onItemClick(View view, int position) {
-        NavHostFragment.findNavController(ClassPageFragment.this)
-                .navigate(ClassPageFragmentDirections.
-                        actionClassPageFragmentToTrainingPageFragment(professorUsername,
-                                className, trainingsName.get(position)));
+        NavHostFragment.findNavController(StudentClassPageFragment.this)
+                .navigate(StudentClassPageFragmentDirections.
+                        actionStudentClassPageFragmentToStudentTrainingPageFragment(studentUsername,
+                                professorUsername, className, trainingsName.get(position)));
     }
 }
