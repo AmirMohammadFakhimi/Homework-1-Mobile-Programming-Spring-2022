@@ -60,7 +60,23 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
+        binding.addClass.setOnClickListener(view1 -> {
+            String searchText = binding.className.getText().toString();
+            if (searchText.isEmpty()) {
+                Toast.makeText(getContext(), "Please enter a class name", Toast.LENGTH_SHORT).show();
+            } else if (!classesName.contains(searchText)) {
+                Toast.makeText(getContext(), "Class not found", Toast.LENGTH_SHORT).show();
+            } else {
+                addToClass(searchText);
+            }
+        });
+    }
 
+    private void addToClass(String searchText) {
+        Class newClass = Class.getClassByName(searchText);
+        newClass.getStudents().add(student);
+        student.getClasses().add(newClass);
+        Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
     }
 
 
