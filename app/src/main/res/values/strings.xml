@@ -29,6 +29,8 @@
     <string name="training_name">training name</string>
     <string name="Create_Training">create training</string>
     <string name="Create_New_Training">create new training</string>
+    <string name="login">login</string>
+    <string name="UserName">username</string>
 
 
 </resources>

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_signup_to_student"
             app:destination="@id/studentSignupFragment" />
+        <action
+            android:id="@+id/action_SignupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentSignupFragment"
@@ -212,5 +215,20 @@
         <argument
             android:name="trainingName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="edu.sharif.homework1.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_SignupFragment"
+            app:destination="@id/SignupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentPanelFragment"
+            app:destination="@id/studentPanelFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_professorPanelFragment"
+            app:destination="@id/professorPanelFragment" />
     </fragment>
 </navigation>

@@ -7,6 +7,7 @@
     tools:context=".SignupFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -76,5 +77,18 @@
                 android:text="@string/student" />
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="already have an account? log in"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.328" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

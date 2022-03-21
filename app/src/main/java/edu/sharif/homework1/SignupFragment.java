@@ -46,6 +46,12 @@ public class SignupFragment extends Fragment {
                 openSignupStudentFragment();
             }
         });
+
+        binding.loginButton.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(SignupFragment.this)
+                    .navigate(SignupFragmentDirections.
+                            actionSignupFragmentToLoginFragment());
+        });
     }
 
     private boolean areFieldsValid(boolean isStudentClicked) {
