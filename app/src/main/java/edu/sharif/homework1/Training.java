@@ -11,25 +11,29 @@ public class Training {
         trainings = new ArrayList<>();
     }
 
+    private int id;
     private String name;
     private String ownerClass;
 
-    private ArrayList<Answer> answers;
+    private ArrayList<Integer> answersId;
 
     {
-        answers = new ArrayList<>();
+        answersId = new ArrayList<>();
     }
 
     public Training (String name, String ownerClass, FragmentActivity activity) {
         this.name = name;
         this.ownerClass = ownerClass;
 
-        MainActivity.saveData(activity, this, "Trainings" + trainings.size());
+        id = trainings.size();
+        MainActivity.saveData(activity, this, "Trainings" + id);
         trainings.add(this);
     }
 
     public static Training getTrainingByClassAndName(Class ownerClass, String trainingName) {
-        for (Training training: ownerClass.getTrainings()) {
+        for (int trainingId : ownerClass.getTrainingsId()) {
+            Training training = getTrainingById(trainingId);
+
             if (training.getName().equals(trainingName)) {
                 return training;
             }
@@ -37,20 +41,39 @@ public class Training {
         return null;
     }
 
+    public static Training getTrainingById(int id) {
+        return trainings.get(id);
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName (String name) { this.name = name; }
+    public void setName(String name, FragmentActivity activity) {
+        this.name = name;
+        MainActivity.saveData(activity, this, "Trainings" + id);
+    }
 
-    public ArrayList<Answer> getAnswers() { return answers; }
+    public void setAnswersId(ArrayList<Integer> answersId, FragmentActivity activity) {
+        this.answersId = answersId;
+        MainActivity.saveData(activity, this, "Trainings" + id);
+    }
+
+    public ArrayList<Integer> getAnswersId() {
+        return answersId;
+    }
 
     public String getOwnerClass() {
         return ownerClass;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Answer getAnswerByStudentUsername(String studentUsername) {
-        for (Answer answer: answers) {
+        for (int answerId : answersId) {
+            Answer answer = Answer.getAnswerById(answerId);
             if (answer.getStudentUsername().equals(studentUsername)) {
                 return answer;
             }

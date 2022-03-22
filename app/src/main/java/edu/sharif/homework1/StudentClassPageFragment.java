@@ -56,11 +56,11 @@ public class StudentClassPageFragment extends Fragment  implements MyRecyclerVie
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<Training> trainings = thisClass.getTrainings();
+        ArrayList<Integer> trainingsId = thisClass.getTrainingsId();
 
         trainingsName.clear();
-        for (Training training: trainings) {
-            trainingsName.add(training.getName());
+        for (int trainingId : trainingsId) {
+            trainingsName.add(Training.getTrainingById(trainingId).getName());
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.class_trainings_list);

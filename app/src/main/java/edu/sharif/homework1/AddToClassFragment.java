@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import edu.sharif.homework1.databinding.FragmentAddToClassBinding;
 
-public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
+public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
 
     private FragmentAddToClassBinding binding;
     private MyRecyclerViewAdapter adapter;
@@ -74,8 +74,8 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
 
     private void addToClass(String searchText) {
         Class newClass = Class.getClassByName(searchText);
-        newClass.getStudents().add(student);
-        student.getClasses().add(newClass);
+        newClass.addStudent(student.getUsername(), getActivity());
+        student.addClass(newClass, getActivity(), false);
         Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
     }
 
@@ -90,8 +90,8 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
     @Override
     public void onItemClick(View view, int position) {
         Class newClass = Class.classes.get(position);
-        newClass.getStudents().add(student);
-        student.getClasses().add(newClass);
+        newClass.addStudent(student.getUsername(), getActivity());
+        student.addClass(newClass, getActivity(), false);
         Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
     }
 }

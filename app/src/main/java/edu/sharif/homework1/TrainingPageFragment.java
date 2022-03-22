@@ -58,7 +58,8 @@ public class TrainingPageFragment extends Fragment implements MyRecyclerViewAdap
         super.onViewCreated(view, savedInstanceState);
 
         answersText.clear();
-        for (Answer answer: thisTraining.getAnswers()) {
+        for (int answerId : thisTraining.getAnswersId()) {
+            Answer answer = Answer.getAnswerById(answerId);
             answersText.add(answer.getStudentUsername() + ": " + answer.getAnswerText());
         }
 
@@ -80,7 +81,7 @@ public class TrainingPageFragment extends Fragment implements MyRecyclerViewAdap
                         "Please enter the new name.", Toast.LENGTH_LONG).show();
             }
             else {
-                thisTraining.setName(newTrainingName);
+                thisTraining.setName(newTrainingName, getActivity());
                 Toast.makeText(getContext(),
                         "Training name updated successfully.", Toast.LENGTH_LONG).show();
             }

@@ -13,12 +13,12 @@ public class Class {
 
     private String name;
     private String professorUsername;
-    private ArrayList<Student> students;
-    private ArrayList<Training> trainings;
+    private ArrayList<String> studentsUsername;
+    private ArrayList<Integer> trainingsId;
 
     {
-        students = new ArrayList<>();
-        trainings = new ArrayList<>();
+        studentsUsername = new ArrayList<>();
+        trainingsId = new ArrayList<>();
     }
 
     public Class(String name, String professorUsername, FragmentActivity activity) {
@@ -38,24 +38,31 @@ public class Class {
         return null;
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
+    public ArrayList<String> getStudentsUsername() {
+        return studentsUsername;
     }
 
-    public ArrayList<Training> getTrainings() {
-        return trainings;
+    public ArrayList<Integer> getTrainingsId() {
+        return trainingsId;
     }
 
     public String getName() {
         return name;
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
+    public void addStudent(String studentUsername, FragmentActivity activity) {
+        studentsUsername.add(studentUsername);
+        MainActivity.saveData(activity, this, "Classes" + classes.indexOf(this));
     }
 
-    public void addTraining(Training training) {
-        trainings.add(training);
+    public void addTraining(int trainingId, FragmentActivity activity) {
+        trainingsId.add(trainingId);
+        MainActivity.saveData(activity, this, "Classes" + classes.indexOf(this));
+    }
+
+    public void setTrainingsId(ArrayList<Integer> trainingsId, FragmentActivity activity) {
+        this.trainingsId = trainingsId;
+        MainActivity.saveData(activity, this, "Classes" + classes.indexOf(this));
     }
 
     public String getProfessorUsername() { return professorUsername; }

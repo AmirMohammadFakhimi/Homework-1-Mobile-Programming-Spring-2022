@@ -54,7 +54,9 @@ public class CreateTrainingFragment extends Fragment{
 
     private void addTrainingToClass(String trainingName) {
         Class ownerClass = Class.getClassByName(className);
-        ownerClass.getTrainings().add(new Training(trainingName, className, getActivity()));
+
+        Training training = new Training(trainingName, className, getActivity());
+        ownerClass.addTraining(training.getId(), getActivity());
     }
 
     @Override

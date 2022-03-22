@@ -11,6 +11,7 @@ public class Answer {
         answers = new ArrayList<>();
     }
 
+    private int id;
     private String studentUsername;
     private String answerText;
     private boolean gradeSet;
@@ -23,7 +24,12 @@ public class Answer {
         this.grade = 0;
 
         MainActivity.saveData(activity, this, "Answers" + answers.size());
+        id = answers.size();
         answers.add(this);
+    }
+
+    public static Answer getAnswerById(int id) {
+        return answers.get(id);
     }
 
     public String getStudentUsername() {
@@ -34,23 +40,36 @@ public class Answer {
         return answerText;
     }
 
-    public void setAnswerText(String answerText) {
+    public void setAnswerText(String answerText, FragmentActivity activity) {
         this.answerText = answerText;
+
+        MainActivity.saveData(activity, this,
+                "Answers" + id);
     }
 
     public boolean isGradeSet() {
         return gradeSet;
     }
 
-    public void setGradeSet(boolean gradeSet) {
+    public void setGradeSet(boolean gradeSet, FragmentActivity activity) {
         this.gradeSet = gradeSet;
+
+        MainActivity.saveData(activity, this,
+                "Answers" + id);
     }
 
     public int getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(int grade, FragmentActivity activity) {
         this.grade = grade;
+
+        MainActivity.saveData(activity, this,
+                "Answers" + id);
+    }
+
+    public int getId() {
+        return id;
     }
 }

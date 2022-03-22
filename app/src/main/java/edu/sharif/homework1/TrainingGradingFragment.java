@@ -68,8 +68,8 @@ public class TrainingGradingFragment extends Fragment {
                             "Grade should be between 0 and 100.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    thisAnswer.setGrade(gradeNumber);
-                    thisAnswer.setGradeSet(true);
+                    thisAnswer.setGrade(gradeNumber, getActivity());
+                    thisAnswer.setGradeSet(true, getActivity());
                     Toast.makeText(getContext(),
                             "Grade Updated successfully.", Toast.LENGTH_LONG).show();
                 }

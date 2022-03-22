@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        uncomment to delete all saved data
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+//        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.clear();
+//        editor.apply();
         retrieveData();
     }
 
@@ -71,11 +71,12 @@ public class MainActivity extends AppCompatActivity {
     private void retrieveData() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         Gson gson = new Gson();
+        String json = sharedPreferences.getString("Classes0", "");
 
         retrieveProfessors(sharedPreferences, gson);
         retrieveStudents(sharedPreferences, gson);
-        retrieveTrainings(sharedPreferences, gson);
         retrieveAnswers(sharedPreferences, gson);
+        retrieveTrainings(sharedPreferences, gson);
         retrieveClasses(sharedPreferences, gson);
 
     }
@@ -102,53 +103,54 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void retrieveTrainings(SharedPreferences sharedPreferences, Gson gson) {
-        String json = sharedPreferences.getString("Trainings0", "");
-        for (int i = 1; !json.isEmpty(); i++) {
-            Training training = gson.fromJson(json, Training.class);
-            new Training(training.getName(), training.getOwnerClass(), this);
-
-            json = sharedPreferences.getString("Trainings" + i, "");
-        }
-    }
-
     private void retrieveAnswers(SharedPreferences sharedPreferences, Gson gson) {
         String json = sharedPreferences.getString("Answers0", "");
         for (int i = 1; !json.isEmpty(); i++) {
             Answer answer = gson.fromJson(json, Answer.class);
-            new Answer(answer.getStudentUsername(), answer.getAnswerText(), this);
+            Answer newAnswer =
+                    new Answer(answer.getStudentUsername(), answer.getAnswerText(), this);
+            newAnswer.setGradeSet(answer.isGradeSet(), this);
+            newAnswer.setGrade(answer.getGrade(), this);
 
             json = sharedPreferences.getString("Answers" + i, "");
         }
     }
 
-    private void retrieveClasses(SharedPreferences sharedPreferences, Gson gson) {
+    private void retrieveTrainings(SharedPreferences sharedPreferences, Gson gson) {
         String json = sharedPreferences.getString("Trainings0", "");
+        for (int i = 1; !json.isEmpty(); i++) {
+            Training training = gson.fromJson(json, Training.class);
+            Training newTraining =
+                    new Training(training.getName(), training.getOwnerClass(), this);
+
+            newTraining.setAnswersId(training.getAnswersId(), this);
+
+            json = sharedPreferences.getString("Trainings" + i, "");
+        }
+    }
+
+    private void retrieveClasses(SharedPreferences sharedPreferences, Gson gson) {
+        String json = sharedPreferences.getString("Classes0", "");
         for (int i = 1; !json.isEmpty(); i++) {
             Class c1 = gson.fromJson(json, Class.class);
 
             Professor professor = (Professor) User.getUserByUsername(c1.getProfessorUsername());
             Class c2 = new Class(c1.getName(), professor.getUsername(), this);
-            professor.addClass(c2);
+            professor.addClass(c2, this, true);
 
 //            add students to class
-            ArrayList<Student> students = c1.getStudents();
-            for (Student student : students) {
-                Student newStudent = (Student) User.getUserByUsername(student.getUsername());
-                c2.addStudent(newStudent);
-                newStudent.addClass(c2);
+            ArrayList<String> studentsUsername = c1.getStudentsUsername();
+            for (String studentUsername : studentsUsername) {
+                c2.addStudent(studentUsername, this);
+
+                Student newStudent = (Student) User.getUserByUsername(studentUsername);
+                newStudent.addClass(c2, this, false);
             }
 
 //            add trainings to class
-            ArrayList<Training> trainings = c1.getTrainings();
-            for (Training training : trainings) {
-                Training newTraining = (Training) Training.getTrainingByClassAndName(
-                        Class.getClassByName(training.getOwnerClass()), training.getName());
+            c2.setTrainingsId(c1.getTrainingsId(), this);
 
-                c2.addTraining(newTraining);
-            }
-
-            json = sharedPreferences.getString("Trainings" + i, "");
+            json = sharedPreferences.getString("Classes" + i, "");
         }
     }
 }

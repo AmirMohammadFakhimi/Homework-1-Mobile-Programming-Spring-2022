@@ -80,21 +80,28 @@ public class StudentTrainingPageFragment extends Fragment {
     }
 
     private void addAnswerToTraining(String answerText) {
-        for (int i = 0; i < thisTraining.getAnswers().size(); i++) {
-            Answer answer = thisTraining.getAnswers().get(i);
+        for (int i = 0; i < thisTraining.getAnswersId().size(); i++) {
+            int answerId = thisTraining.getAnswersId().get(i);
+            Answer answer = Answer.getAnswerById(answerId);
+
             Student newStudent = (Student) User.getUserByUsername(answer.getStudentUsername());
 
             if (newStudent.equals(student)) {
-                answer.setAnswerText(answerText);
-                answer.setGradeSet(false);
-                answer.setGrade(0);
-                thisTraining.getAnswers().set(i, answer);
+                answer.setAnswerText(answerText, getActivity());
+                answer.setGradeSet(false, getActivity());
+                answer.setGrade(0, getActivity());
+                thisTraining.getAnswersId().set(i, answer.getId());
+                MainActivity.saveData(getActivity(), thisTraining,
+                        "Trainings" + thisTraining.getId());
+
                 return;
             }
         }
 
         Answer newAnswer = new Answer(student.getUsername(), answerText, getActivity());
-        thisTraining.getAnswers().add(newAnswer);
+        thisTraining.getAnswersId().add(newAnswer.getId());
+        MainActivity.saveData(getActivity(), thisTraining,
+                "Trainings" + thisTraining.getId());
     }
 
     @Override

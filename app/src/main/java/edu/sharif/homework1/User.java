@@ -1,5 +1,7 @@
 package edu.sharif.homework1;
 
+import androidx.fragment.app.FragmentActivity;
+
 import java.util.ArrayList;
 
 public class User {
@@ -55,7 +57,12 @@ public class User {
         return classes;
     }
 
-    public void addClass(Class c) {
+    public void addClass(Class c, FragmentActivity activity, boolean isProfessor) {
+        if (isProfessor)
+            MainActivity.saveData(activity, this, "Professors" + users.indexOf(this));
+        else
+            MainActivity.saveData(activity, this, "Students" + users.indexOf(this));
+
         classes.add(c);
     }
 }
