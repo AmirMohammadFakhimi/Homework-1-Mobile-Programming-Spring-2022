@@ -74,9 +74,11 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
 
     private void addToClass(String searchText) {
         Class newClass = Class.getClassByName(searchText);
-        newClass.addStudent(student.getUsername(), getActivity());
-        student.addClass(newClass, getActivity(), false);
-        Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
+        if(!student.getClasses().contains(newClass)){
+            newClass.addStudent(student.getUsername(), getActivity());
+            student.addClass(newClass, getActivity(), false);
+            Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -90,8 +92,10 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
     @Override
     public void onItemClick(View view, int position) {
         Class newClass = Class.classes.get(position);
-        newClass.addStudent(student.getUsername(), getActivity());
-        student.addClass(newClass, getActivity(), false);
-        Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
+        if(!student.getClasses().contains(newClass)){
+            newClass.addStudent(student.getUsername(), getActivity());
+            student.addClass(newClass, getActivity(), false);
+            Toast.makeText(getContext(), "you added to this class!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
