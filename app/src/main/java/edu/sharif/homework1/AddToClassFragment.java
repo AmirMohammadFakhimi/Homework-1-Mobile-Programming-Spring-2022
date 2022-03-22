@@ -91,7 +91,7 @@ public class AddToClassFragment extends Fragment implements MyRecyclerViewAdapte
 
     @Override
     public void onItemClick(View view, int position) {
-        Class newClass = Class.classes.get(position);
+        Class newClass = Class.getClassByName(classesName.get(position));
         if(!student.getClasses().contains(newClass)){
             newClass.addStudent(student.getUsername(), getActivity());
             student.addClass(newClass, getActivity(), false);

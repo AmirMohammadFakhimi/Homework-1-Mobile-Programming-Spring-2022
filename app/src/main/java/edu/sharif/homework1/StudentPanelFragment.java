@@ -68,9 +68,13 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
             } else if (!classesName.contains(searchText)) {
                 Toast.makeText(getContext(), "Class not found", Toast.LENGTH_SHORT).show();
             } else {
-//                NavHostFragment.findNavController(StudentPanelFragment.this)
-//                        .navigate(StudentPanelFragmentDirections.
-//                                actionStudentPanelFragmentToStudentClassPage());
+                String className = searchText.split(" - ")[0];
+                String professorUsername = searchText.split(" - ")[1];
+
+                NavHostFragment.findNavController(StudentPanelFragment.this)
+                        .navigate(StudentPanelFragmentDirections.
+                                actionStudentPanelFragmentToStudentClassPage(username, professorUsername,
+                                        className));
             }
         });
 
@@ -99,6 +103,7 @@ public class StudentPanelFragment extends Fragment implements MyRecyclerViewAdap
 
         NavHostFragment.findNavController(StudentPanelFragment.this)
                 .navigate(StudentPanelFragmentDirections.
-                        actionStudentPanelFragmentToStudentClassPage(username, professorUsername, className));
+                        actionStudentPanelFragmentToStudentClassPage(username, professorUsername,
+                                className));
     }
 }
