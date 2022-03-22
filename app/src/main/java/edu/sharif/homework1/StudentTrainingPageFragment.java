@@ -46,8 +46,8 @@ public class StudentTrainingPageFragment extends Fragment {
         student = (Student) User.getUserByUsername(studentUsername);
         studentAnswer = thisTraining.getAnswerByStudentUsername(studentUsername);
 
-        currentAnswer = (studentAnswer == null? "-" : studentAnswer.getAnswerText());
-        currentGrade = (studentAnswer == null || !studentAnswer.isGradeSet()? "-" :
+        currentAnswer = (studentAnswer == null ? "-" : studentAnswer.getAnswerText());
+        currentGrade = (studentAnswer == null || !studentAnswer.isGradeSet() ? "-" :
                 String.valueOf(studentAnswer.getGrade()));
 
 
@@ -59,11 +59,7 @@ public class StudentTrainingPageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.trainingNameText.setText("Professor: " + professorUsername + "\n"
-                                         + "Class: " + className + "\n"
-                                         + "Training: " + trainingName + "\n"
-                                         + "Current Answer: " + currentAnswer + "\n"
-                                         + "Current Grade: " + currentGrade);
+        binding.trainingNameText.setText(getStudentGradingText());
 
         binding.submitTrainingButton.setOnClickListener(view1 -> {
             String answerText = binding.answerText.getText().toString();
@@ -71,10 +67,11 @@ public class StudentTrainingPageFragment extends Fragment {
             if (answerText.isEmpty()) {
                 Toast.makeText(getContext(),
                         "Please fill the answer field.", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 addAnswerToTraining(answerText);
+                currentAnswer = answerText;
                 Toast.makeText(getContext(), "Your answer has been submitted", Toast.LENGTH_LONG).show();
+                binding.trainingNameText.setText(getStudentGradingText());
             }
         });
     }
@@ -110,4 +107,11 @@ public class StudentTrainingPageFragment extends Fragment {
         binding = null;
     }
 
+    private String getStudentGradingText() {
+        return "Professor: " + professorUsername + "\n"
+                + "Class: " + className + "\n"
+                + "Training: " + trainingName + "\n"
+                + "Current Answer: " + currentAnswer + "\n"
+                + "Current Grade: " + currentGrade;
+    }
 }

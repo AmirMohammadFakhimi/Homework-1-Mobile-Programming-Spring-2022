@@ -69,9 +69,7 @@ public class TrainingPageFragment extends Fragment implements MyRecyclerViewAdap
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        binding.classNameText.setText("Professor: " + professorUsername + "\n"
-                                      + "Class: " + className + "\n"
-                                      + "Training: " + trainingName);
+        binding.classNameText.setText(getTrainingPageText());
 
         binding.changeTrainingName.setOnClickListener(view1 -> {
             String newTrainingName = binding.newTrainingName.getText().toString();
@@ -79,11 +77,12 @@ public class TrainingPageFragment extends Fragment implements MyRecyclerViewAdap
             if (newTrainingName.isEmpty()) {
                 Toast.makeText(getContext(),
                         "Please enter the new name.", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 thisTraining.setName(newTrainingName, getActivity());
                 Toast.makeText(getContext(),
                         "Training name updated successfully.", Toast.LENGTH_LONG).show();
+
+                binding.classNameText.setText(getTrainingPageText());
             }
         });
     }
@@ -104,5 +103,11 @@ public class TrainingPageFragment extends Fragment implements MyRecyclerViewAdap
                 .navigate(TrainingPageFragmentDirections.
                         actionTrainingPageFragmentToTrainingGradingFragment(studentUsername,
                                 professorUsername, className, trainingName));
+    }
+
+    private String getTrainingPageText() {
+        return "Professor: " + professorUsername + "\n"
+                + "Class: " + className + "\n"
+                + "Training: " + thisTraining.getName();
     }
 }

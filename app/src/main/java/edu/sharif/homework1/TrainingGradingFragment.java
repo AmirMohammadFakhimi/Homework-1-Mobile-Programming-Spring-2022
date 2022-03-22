@@ -49,10 +49,7 @@ public class TrainingGradingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.gradingTitle.setText("Student: " + studentUsername + "\n"
-                + "Class: " + className + "\n"
-                + "Training: " + trainingName + "\n"
-                + "Current Grade: " + (thisAnswer.isGradeSet()? thisAnswer.getGrade() : "-"));
+        binding.gradingTitle.setText(getTrainingGradingText());
 
         binding.gradingSubmit.setOnClickListener(view1 -> {
             String gradeString = binding.Grade.getText().toString();
@@ -60,18 +57,17 @@ public class TrainingGradingFragment extends Fragment {
             if (gradeString.isEmpty()) {
                 Toast.makeText(getContext(),
                         "Please enter the grade.", Toast.LENGTH_LONG).show();
-            }
-            else {
+            } else {
                 int gradeNumber = Integer.parseInt(gradeString);
                 if (gradeNumber < 0 || gradeNumber > 100) {
                     Toast.makeText(getContext(),
                             "Grade should be between 0 and 100.", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     thisAnswer.setGrade(gradeNumber, getActivity());
                     thisAnswer.setGradeSet(true, getActivity());
                     Toast.makeText(getContext(),
                             "Grade Updated successfully.", Toast.LENGTH_LONG).show();
+                    binding.gradingTitle.setText(getTrainingGradingText());
                 }
             }
         });
@@ -81,5 +77,12 @@ public class TrainingGradingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private String getTrainingGradingText() {
+        return "Student: " + studentUsername + "\n"
+                + "Class: " + className + "\n"
+                + "Training: " + trainingName + "\n"
+                + "Current Grade: " + (thisAnswer.isGradeSet() ? thisAnswer.getGrade() : "-");
     }
 }
